@@ -1,6 +1,6 @@
 import subprocess
 import os
-
+import sys
 def generate_mermaid_svg(input_file, output_file):
     """
     Generate an SVG file from a Mermaid diagram using Mermaid CLI.
@@ -34,12 +34,20 @@ def generate_mermaid_svg(input_file, output_file):
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while generating the SVG: {e.stderr}")
 
-# Example usage
+
+
 if __name__ == "__main__":
-    # Input Mermaid file path
-    input_mermaid_file = r"C:\Users\shade\OneDrive\000_gits\tools\mermaid\data\test test data\test.mmd"  # Update this with your .mmd file path
-    # Output SVG file path
-    output_svg_file = "diagram.svg"     # Update this with your desired output path
+    # Default file paths
+    input_mermaid_file = r"C:\Users\shade\OneDrive\000_gits\tools\mermaid\data\test test data\test.mmd"
+    output_svg_file = "diagram.svg"
+
+    # If command line arguments are provided, use them
+    # sys.argv[1] will be the first argument after the script name
+    # sys.argv[2] will be the second argument, if present
+    if len(sys.argv) > 1:
+        input_mermaid_file = sys.argv[1]
+    if len(sys.argv) > 2:
+        output_svg_file = sys.argv[2]
 
     if os.path.exists(input_mermaid_file):
         generate_mermaid_svg(input_mermaid_file, output_svg_file)
