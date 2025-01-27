@@ -38,16 +38,16 @@ def generate_mermaid_svg(input_file, output_file):
 
 if __name__ == "__main__":
     # Default file paths
-    input_mermaid_file = r"C:\Users\shade\OneDrive\000_gits\tools\mermaid\data\test test data\test.mmd"
+    input_mermaid_file = r"C:\Users\shade\OneDrive\KG\002_Projects\RH HELF\RH.mmd"
     output_svg_file = "diagram.svg"
 
     # If command line arguments are provided, use them
     # sys.argv[1] will be the first argument after the script name
     # sys.argv[2] will be the second argument, if present
     if len(sys.argv) > 1:
-        input_mermaid_file = sys.argv[1]
+        input_mermaid_file = fr"{sys.argv[1]}"
     if len(sys.argv) > 2:
-        output_svg_file = sys.argv[2]
+        output_svg_file = fr"{sys.argv[2]}"
 
     if os.path.exists(input_mermaid_file):
         generate_mermaid_svg(input_mermaid_file, output_svg_file)
