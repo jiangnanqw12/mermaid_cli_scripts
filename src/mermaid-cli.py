@@ -37,7 +37,7 @@ def generate_mermaid_svg(input_file, output_file):
 
 def main():
     # Default file paths
-    input_file_path = r"C:\Users\shade\OneDrive\KG\004_Archives\2025\TEC software\架构\TE software.mm 2024-09-20 14.50.29.md"
+    input_file_path = r"C:\Users\shade\OneDrive\KG\004_Archives\2025\TEC software\tec modules.mmd"
     output_file_path = "diagram.svg"
 
 
