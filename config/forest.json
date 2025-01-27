@@ -1,0 +1,22 @@
+{
+    "theme": "forest",
+    "flowchart": {
+      "curve": "basis",
+      "htmlLabels": true,
+      "useMaxWidth": true
+    },
+    "sequence": {
+      "actorMargin": 50,
+      "mirrorActors": true,
+      "showSequenceNumbers": true
+    },
+    "themeVariables": {
+      "primaryColor": "#6AA84F",
+      "primaryTextColor": "#FFFFFF",
+      "primaryBorderColor": "#38761D",
+      "lineColor": "#38761D",
+      "secondaryColor": "#E69138",
+      "tertiaryColor": "#FFFFFF"
+    }
+  }
+  

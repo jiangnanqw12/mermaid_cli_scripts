@@ -1,0 +1,8 @@
+{
+  "startOnLoad": true,
+  "flowchart": {
+    "defaultRenderer": "elk"
+  }
+}
+
+  
