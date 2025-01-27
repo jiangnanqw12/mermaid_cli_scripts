@@ -35,21 +35,31 @@ def generate_mermaid_svg(input_file, output_file):
         print(f"An error occurred while generating the SVG: {e.stderr}")
 
 
+def main():
+    # Default file paths
+    input_file_path = r"C:\Users\shade\OneDrive\KG\004_Archives\2025\TEC software\架构\TE software.mm 2024-09-20 14.50.29.md"
+    output_file_path = "diagram.svg"
+
+
+    # If command line arguments are provided, use the first one as input path
+    if len(sys.argv) > 1:
+        input_file_path = fr"{sys.argv[1]}"  # Input file from CLI
+    # Get the current script directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Extract the base name (without extension) from the input
+    base_name = os.path.splitext(os.path.basename(input_file_path))[0]
+
+    # Construct the output path: script_dir/../output/base_name.svg
+    output_dir = os.path.join(script_dir, '..', 'output')
+    output_file_path = os.path.join(output_dir, base_name + '.svg')
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    # Now call the generate function
+    if os.path.exists(input_file_path):
+        generate_mermaid_svg(input_file_path, output_file_path)
+    else:
+        print(f"Input file not found: {input_file_path}")
 
 if __name__ == "__main__":
-    # Default file paths
-    input_mermaid_file = r"C:\Users\shade\OneDrive\KG\002_Projects\RH HELF\RH.mmd"
-    output_svg_file = "diagram.svg"
 
-    # If command line arguments are provided, use them
-    # sys.argv[1] will be the first argument after the script name
-    # sys.argv[2] will be the second argument, if present
-    if len(sys.argv) > 1:
-        input_mermaid_file = fr"{sys.argv[1]}"
-    if len(sys.argv) > 2:
-        output_svg_file = fr"{sys.argv[2]}"
-
-    if os.path.exists(input_mermaid_file):
-        generate_mermaid_svg(input_mermaid_file, output_svg_file)
-    else:
-        print(f"Input file not found: {input_mermaid_file}")
+    main()
