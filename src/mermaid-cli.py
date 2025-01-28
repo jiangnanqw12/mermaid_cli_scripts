@@ -1,7 +1,22 @@
 import subprocess
 import os
 import sys
-
+import json
+def load_scripts_config():
+    """
+    Load default parameters from scripts_config.json.
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_dir = os.path.join(script_dir, '..', 'config')
+    config_file_path = os.path.join(config_dir, 'scripts_config.json')
+    try:
+        with open(config_file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data
+    except FileNotFoundError:
+        print(f"scripts_config.json not found at: {config_file_path}")
+        return {}  # Return empty dict if config is missing
+    
 def build_mermaid_command(input_path, output_path, config_path):
     """
     Build the Mermaid CLI command for generating SVG.
@@ -31,20 +46,32 @@ def prepare_paths(input_file_path=None, config_file_path=None):
     :param config_file_path: Path to the config file. If None, uses a default config path.
     :return: Tuple of input file path, output file path, and config file path.
     """
-    if not input_file_path:
-        input_file_path = r"C:\Users\shade\OneDrive\KG\004_Archives\2025\TEC software\架构\tec modules.mmd"
+    # Load defaults from scripts_config.json
+    cfg = load_scripts_config()
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # If no command line input file, use config file's input_file_path
+    if not input_file_path:
+        default_input_file_path=os.path.join(script_dir,"..","data","test test data","test.mmd")
+        input_file_path = cfg.get("input_file_path", default_input_file_path)
+
+    # Get extension from config or fallback to .svg
+    extension = cfg.get("extension", ".svg")
+    
+    
     base_name = os.path.splitext(os.path.basename(input_file_path))[0]
 
     output_dir = os.path.join(script_dir, '..', 'output')
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    output_file_path = os.path.join(output_dir, base_name + '.svg')
+    output_file_path = os.path.join(output_dir, base_name + extension)
+
     if not config_file_path:
         config_dir = os.path.join(script_dir, '..', 'config')
-        config_file_path = os.path.join(config_dir, "mermaid-cli_cofig" + '.json')
+        mermaid_cli_config_filename = cfg.get("mermaid_cli_config_filename", "mermaid-cli_cofig.json")
+        config_file_path = os.path.join(config_dir, mermaid_cli_config_filename)
     return input_file_path, output_file_path, config_file_path
 
 def generate_mermaid_svg(input_file, output_file, config_file):
