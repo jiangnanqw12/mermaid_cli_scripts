@@ -34,9 +34,6 @@ def prepare_paths(input_file_path=None, config_file_path=None):
     if not input_file_path:
         input_file_path = r"C:\Users\shade\OneDrive\KG\004_Archives\2025\TEC software\架构\tec modules.mmd"
 
-    if not config_file_path:
-        config_file_path = r"C:\Users\shade\OneDrive\000_gits\tools\mermaid_cli_scripts\config\mermaid-config.json"
-
     script_dir = os.path.dirname(os.path.abspath(__file__))
     base_name = os.path.splitext(os.path.basename(input_file_path))[0]
 
@@ -45,6 +42,9 @@ def prepare_paths(input_file_path=None, config_file_path=None):
         os.makedirs(output_dir)
 
     output_file_path = os.path.join(output_dir, base_name + '.svg')
+    if not config_file_path:
+        config_dir = os.path.join(script_dir, '..', 'config')
+        config_file_path = os.path.join(config_dir, "mermaid-cli_cofig" + '.json')
     return input_file_path, output_file_path, config_file_path
 
 def generate_mermaid_svg(input_file, output_file, config_file):
