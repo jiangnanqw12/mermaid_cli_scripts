@@ -69,8 +69,8 @@ def prepare_paths(input_file_path=None, config_file_path=None):
     output_file_path = os.path.join(output_dir, base_name + extension)
 
     if not config_file_path:
-        config_dir = os.path.join(script_dir, '..', 'config')
-        mermaid_cli_config_filename = cfg.get("mermaid_cli_config_filename", "mermaid-cli_cofig.json")
+        config_dir = os.path.join(script_dir, '..', 'config','mermaid-cli')
+        mermaid_cli_config_filename = cfg.get("mermaid_cli_config_filename", "default.json")
         config_file_path = os.path.join(config_dir, mermaid_cli_config_filename)
     return input_file_path, output_file_path, config_file_path
 
